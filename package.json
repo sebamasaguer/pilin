@@ -1,0 +1,26 @@
+{
+  "name": "telegram-water-ice-bot",
+  "version": "1.0.0",
+  "description": "Bot de Telegram para gestionar reparto de agua y hielo.",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "nodejs",
+    "postgres"
+  ],
+  "author": "Jules AI Agent",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "node-telegram-bot-api": "^0.64.0",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
