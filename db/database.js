@@ -32,7 +32,7 @@ const initializeSchema = async () => {
       last_name VARCHAR(255),
       is_active BOOLEAN DEFAULT TRUE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      fecha_actualizacion TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
   `;
 
@@ -201,7 +201,7 @@ const addAdmin = async (telegramId, username, firstName, lastName) => {
       first_name = EXCLUDED.first_name,
       last_name = EXCLUDED.last_name,
       is_active = TRUE,
-      updated_at = CURRENT_TIMESTAMP
+      fecha_actualizacion = CURRENT_TIMESTAMP
     RETURNING *;
   `;
   // ON CONFLICT actualiza los datos y lo reactiva si ya existía.
@@ -238,7 +238,8 @@ const getAllAdmins = async () => {
 };
 
 const setAdminStatus = async (telegramIdToUpdate, isActive) => {
-  const query = 'UPDATE administradores SET is_active = $1, updated_at = CURRENT_TIMESTAMP WHERE telegram_id = $2 RETURNING *;';
+  // El trigger update_administradores_fecha_actualizacion se encargará de la columna fecha_actualizacion
+  const query = 'UPDATE administradores SET is_active = $1 WHERE telegram_id = $2 RETURNING *;';
   try {
     const res = await pool.query(query, [isActive, telegramIdToUpdate]);
     return res.rows[0];
